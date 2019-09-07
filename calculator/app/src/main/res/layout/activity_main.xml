@@ -66,11 +66,35 @@
         android:gravity="center" />
 
     <Button
-        android:id="@+id/result"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/btn_plus"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="150dp"
         android:text="+"
+        android:textSize="40dp" />
+    
+    <Button
+        android:id="@+id/btn_sub"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="150dp"
+        android:text="-"
+        android:textSize="40dp" />
+    
+    <Button
+        android:id="@+id/btn_mul"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="150dp"
+        android:text="*"
+        android:textSize="40dp" />
+    
+    <Button
+        android:id="@+id/btn_div"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="150dp"
+        android:text="/"
         android:textSize="40dp" />
 
     <LinearLayout

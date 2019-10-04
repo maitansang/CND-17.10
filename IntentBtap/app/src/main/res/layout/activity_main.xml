@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/edsearch"
+        android:id="@+id/ed_Search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/search"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/lv"/>
+        android:id="@+id/lv_Contact"/>
 
 
     <Button

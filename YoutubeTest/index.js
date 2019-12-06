@@ -10,7 +10,7 @@ import { AppRegistry } from 'react-native';
 //Redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-
+import AppContainer from './components/menuComponent'
 import allReducers from './reducers';
 import VideoContainer  from './containers/VideoContainer'//Redux saga
 import createSagaMiddleware from 'redux-saga';
@@ -19,10 +19,10 @@ import {name as appName} from './app.json';
 const sagaMiddleware = createSagaMiddleware();
 
 let store = createStore(allReducers, applyMiddleware(sagaMiddleware));
-const App = () => (
-    <Provider store={store}>
-        <VideoContainer />
-    </Provider>
-);
+const App = () => {
+  return (<Provider store={store}>
+    <AppContainer/>
+  </Provider>)
+};
 sagaMiddleware.run(rootSaga);
 AppRegistry.registerComponent(appName, () => App);

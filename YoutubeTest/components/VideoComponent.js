@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
-import Button from 'react-native-button';
-import Youtube from 'react-native-youtube';
-import HTML from 'react-native-render-html';
 import WebView from 'react-native-webview';
+import {Container, Header, Content, Card,Item,Input, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Title,DeckSwiper,CardSwiper } from 'native-base';
 import {
-
-
-    ScrollView, TouchableOpacity, Dimensions, Text, View, Image, Alert, Platform, TextInput, FlatList, default as Linking, StyleSheet
+     TouchableOpacity, View, Image, Platform, TextInput, FlatList,StyleSheet
 } from 'react-native';
-import Video from 'react-native-video';
 
 export default class VideoComponent extends Component {
     constructor(props){
@@ -18,7 +13,20 @@ export default class VideoComponent extends Component {
         };
     }
 
+  getUrl(url) {
+    let separator = "videos/";
+    let newUrl ="none";
+      let index = url.indexOf(separator);
+      if (index > 0){
+        let urlsplt = url.split(separator, 2);
+        let id = urlsplt[1].split("/");
+        newUrl = "https://www.facebook.com/video/embed?video_id=" + id;
+      }
+    return newUrl;
+  }
+
     myFooter = () => {
+
         return(
             <View style={{padding:10}}>
                 <TouchableOpacity
@@ -28,151 +36,164 @@ export default class VideoComponent extends Component {
                     <Text style={{color:'gray', fontSize:16}}>More result</Text>
 
                 </TouchableOpacity>
+
             </View>
         )
     }
 
+
+
     render(){
-        const {currentTime, duration, paused, overlay}= this.state;
+      const styles = StyleSheet.create({
+        container: {
+          backgroundColor: "#FFF"
+        },
+        mb: {
+          marginBottom: 15
+        }
+      });
+
         return(
 
 
 
             <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0 }}>
-                <WebView
-                    source={{uri: 'https://github.com/facebook/react-native'}}
-                    // style={{marginTop: 20}}
-                />
-
-                {/*<ScrollView>*/}
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.youtube.com/embed/OSZD0K72Aic'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.youtube.com/embed/OSZD0K72Aic'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.youtube.com/embed/OSZD0K72Aic'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.youtube.com/embed/OSZD0K72Aic'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.facebook.com/video/embed?video_id=1167252116799086'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-                {/*    <View style={{height: 200, width: '100%'}}>*/}
-                {/*        <WebView*/}
-                {/*            scrollEnabled={true}*/}
-                {/*            javaScriptEnabled={true}*/}
-                {/*            domStorageEnabled={true}*/}
-                {/*            source={{uri: 'https://www.facebook.com/video/embed?video_id=2021911594579013'}}*/}
-                {/*        />*/}
-                {/*    </View>*/}
-                {/*</ScrollView>*/}
-                <Text style={{ margin: 10, fontWeight: 'bold', color: 'forestgreen', fontSize: 20 }}>
-                    Redux Saga tutorials - Videos of Youtube list
-                </Text>
-
-                <Text style={{ margin: 10, color: 'black', fontSize: 20 }}>
-                    New video information
-                </Text>
+              <Header searchBar rounded>
+                <Item>
+                  <Icon name="ios-search" />
+                  <Input placeholder="Search" />
+                  <Icon name="ios-people" />
+                </Item>
+                <Button transparent>
+                  <Text>Search</Text>
+                </Button>
+              </Header>
                 <View style={{ height: 100, margin: 10 }}>
-                    <TextInput style={{ flex: 1, margin: 5, padding: 10, borderColor: 'gray', borderWidth: 1 }}
-                               onChangeText={(text) => this.setState({ movieName: text })}
-                               value={this.state.movieName}
-                               placeholder='Enter new video '
-                    />
-                    <TextInput style={{ flex: 1, margin: 5, padding: 10, borderColor: 'gray', borderWidth: 1, width: 120 }}
-                               onChangeText={(text) => this.setState({ releaseYear: text })}
-                               value={this.state.releaseYear}
-                               placeholder='Enter some thing'
-                               keyboardType='numeric'
-                    />
-                </View>
-                <View style={{ height: 70, flexDirection: 'row' }}>
-                    <Button
-                        containerStyle={{ padding: 10, margin: 10, width: 150, height: 45, borderRadius: 10, backgroundColor: 'darkviolet' }}
-                        style={{ fontSize: 18, color: 'white' }}
-                        onPress={() => {
+                    {/*<TextInput style={{ flex: 1, margin: 5, padding: 10, borderColor: 'gray', borderWidth: 1 }}*/}
+                    {/*           onChangeText={(text) => this.setState({ movieName: text })}*/}
+                    {/*           value={this.state.movieName}*/}
+                    {/*           placeholder='Enter new video '*/}
+                    {/*/>*/}
+                    {/*<TextInput style={{ flex: 1, margin: 5, padding: 10, borderColor: 'gray', borderWidth: 1, width: 120 }}*/}
+                    {/*           onChangeText={(text) => this.setState({ releaseYear: text })}*/}
+                    {/*           value={this.state.releaseYear}*/}
+                    {/*           placeholder='Enter some thing'*/}
+                    {/*           keyboardType='numeric'*/}
+                    {/*/>*/}
+                  {/*<Button  style={{color: '#87838B'}}*/}
+                  {/*         onPress={() => {*/}
+                  {/*           this.props.onFetchVideos();*/}
+                  {/*         }}>*/}
+                  {/*  <Icon name="logo-github" />*/}
+                  {/*  <Text>1,926 stars</Text>*/}
+                  {/*</Button>*/}
+                  <Button rounded warning style={{tintcolor: 'black'}}
+                          onPress={() => {
                             this.props.onFetchVideos();
-                        }}>
-                        Fetch videos
-                    </Button>
-                    <Button
-                        containerStyle={{ padding: 10, margin: 10, width: 150, height: 45, borderRadius: 10, backgroundColor: 'darkviolet' }}
-                        style={{ fontSize: 18, color: 'white' }}
-                        onPress={() => {
-                            // const {movieName, releaseYear} = this.state;
-                            // if (!movieName.length || !releaseYear.length){
-                            //     alert('You must enter movie name and release year');
-                            //     return;
-                            // }
-                            // this.props.on({name: movieName, releaseYear: releaseYear});
-
-                        }}>
-                        Add Something ("Don't care!!!!")
-                    </Button>
-
-
+                          }}>
+                    <Text>FBI Warning</Text>
+                  </Button>
                 </View>
+
+                {/*<View style={{ height: 70, flexDirection: 'row' }}>*/}
+                {/*    <Button*/}
+                {/*        */}
+                {/*        onPress={() => {*/}
+                {/*            this.props.onFetchVideos();*/}
+                {/*        }}>*/}
+                {/*        Fetch videos*/}
+                {/*    </Button>*/}
+                {/*</View>*/}
 
 
 
                 <FlatList
+
                     data={this.props.videos}
                     keyExtractor={(item) => item.name}
-                    renderItem={({ item, index }) => <Text style={{
-                        // padding: 50,
-                        // // fontWeight: 'bold',
-                        // color: 'white',
-                        backgroundColor: (index % 2 === 0) ? 'dodgerblue' : 'mediumseagreen'
-                    }}>
-                        {`${item.title},url=${item.url}`}
-                        {/*<View style={{height: 300, width: '100%'}}>*/}
-                        {/*    <WebView*/}
-                        {/*        scrollEnabled={true}*/}
-                        {/*        javaScriptEnabled={true}*/}
-                        {/*        domStorageEnabled={true}*/}
-                        {/*        source={{uri: `${item.url}`}}*/}
-                        {/*    />*/}
-                        {/*</View>*/}
-                        {/*<WebView*/}
-                        {/*    source={{uri: `${item.url}`}}*/}
-                        {/*    style={{marginTop: 50}}*/}
-                        {/*/>*/}
+                    renderItem={({ item, index }) => <View>
+                      <Container style={styles.container}>
+                        <Content>
+                          <Card style={styles.mb}>
+                            <CardItem>
+                              <Left>
+                                <Thumbnail source={{uri: `${item.avatar}`}} />
+                                <Body>
+                                  <Text>{item.name}</Text>
+                                  <Text note>{item.createdAt}</Text>
+                                </Body>
+                              </Left>
+                            </CardItem>
+                            <CardItem>
+                            <View style={{height: 300, width: '100%'}}>
 
+                              <Text>{item.title}</Text>
+                              <WebView
+                                javaScriptEnabled={true}
+                                domStorageEnabled={true}
+                                style={{backgroundColor: 'grey', width: '100%'}}
 
+                                source={{uri: `${item.url}`}}
+                              />
+                            </View>
+                            </CardItem>
+                            <CardItem style={{ paddingVertical: 0 }}>
+                              <Left>
+                                <Button transparent>
+                                  <Icon active name="thumbs-up" color="pink" />
+                                  <Text>{item.likes} likes</Text>
+                                </Button>
+                              </Left>
+                              <Body>
+                                <Button transparent>
+                                  <Icon active name="chatbubbles" />
+                                  <Text>{item.comments} comments</Text>
+                                </Button>
+                              </Body>
+                              <Right>
+                                <Text>11h ago</Text>
+                              </Right>
+                            </CardItem>
+                          </Card>
+                        </Content>
+                      </Container>
+                    {/*  <View style={{height: 200, width: '100%'}}>*/}
+                    {/*    <WebView*/}
+                    {/*      scrollEnabled={true}*/}
+                    {/*      javaScriptEnabled={true}*/}
+                    {/*      domStorageEnabled={true}*/}
+                    {/*      // source={{uri: this.getUrl(item.url)}}*/}
+                    {/*      source={{uri:"https://www.youtube.com/watch?v=Glinma-h25M"}}*/}
 
-                    </Text>
+                    {/*    />*/}
+                    {/*    <View style={{flexDirection: 'row' }}>*/}
+                    {/*      <TouchableOpacity>*/}
+                    {/*        <AntDesign name={'like1'}*/}
+                    {/*                   size={20}*/}
+                    {/*                   style={{color: 'blue',flexDirection: 'row' }}>*/}
+                    {/*          <Text>{`${item.likes}`}</Text>*/}
+                    {/*        </AntDesign>*/}
+                    {/*      </TouchableOpacity>*/}
+
+                    {/*      <AntDesign name={'sharealt'}*/}
+                    {/*                 size={20}*/}
+                    {/*                 style={{color: 'blue',flexDirection: 'row' }}>*/}
+
+                    {/*        <Text>{`${item.shares}`}</Text>*/}
+                    {/*      </AntDesign>*/}
+                    {/*    </View>*/}
+                    {/*  </View>*/}
+                    </View>
                     }
+
                     ListFooterComponent={this.myFooter}
+
                 />
+
             </View>);
+
     }
+
+
 }
+//

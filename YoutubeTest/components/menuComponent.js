@@ -1,11 +1,25 @@
 import React from 'react';
-import {StyleSheet, Text, View, BackHandler, Button, Alert} from 'react-native';
+import {StyleSheet, Text, View, BackHandler, Button, Alert,Image,TouchableOpacity} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import VideoContainer from '../containers/VideoContainer';
 import {Icon,Container, Content} from 'native-base';
 import BookTab from '../screens/tabs/BookTab';
+import { createStackNavigator } from 'react-navigation-stack';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Favourite from '../screens/tabs/Favourite';
+import BasketTab from '../screens/tabs/BasketTab';
 
+export default class menuComponent extends React.Component {
+  render() {
+    return (
+      <AppNavigator />
+    );
+  }
+}
 class HomeScreen extends React.Component {
   render() {
     return(
@@ -43,6 +57,7 @@ class NotificationScreen extends React.Component{
 }
 
 class Setting extends React.Component {
+
   showAlert1(){
     Alert.alert(
       'Sang ask you',
@@ -59,7 +74,6 @@ class Setting extends React.Component {
       {cancelable: false},
     )
   }
-  +
   render() {
     return(
 
@@ -67,7 +81,6 @@ class Setting extends React.Component {
       <Container>
         <Content>
           <Button title="exit?" onPress={this.showAlert1}>
-
           </Button>
         </Content>
       </Container>
@@ -86,7 +99,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Explore: {
-      screen: BookTab,
+      screen: BasketTab,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon name='heart' style={{color: tintColor}}></Icon>
@@ -102,7 +115,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       }
     },
     Add: {
-      screen: Setting,
+      screen: BookTab,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon name='settings' style={{color: tintColor}}></Icon>
@@ -130,5 +143,41 @@ const bottomTabNavigator = createBottomTabNavigator(
     }
   }
 );
-
-export default AppContainer = createAppContainer(bottomTabNavigator);
+const AppNavigator = createAppContainer(createStackNavigator({
+  BottomTabNavigator: bottomTabNavigator
+},{
+  defaultNavigationOptions:{
+    headerStyle:{
+      backgroundColor:"#121212",
+      borderBottomWidth: 0
+    },
+    headerLeft:<Image
+      source={{uri:'https://raw.githubusercontent.com/Chandankkrr/react-native-youtube-ui/master/assets/images/yt_logo_rgb_dark.png'}}
+      style={{height:22,width:98,marginLeft:10,}}
+    />,
+    headerRight:(
+      <View style={{ flexDirection: 'row', marginRight: 10 }}>
+        <TouchableOpacity style={{ paddingHorizontal: 15 }}>
+          <Text><Feather name='cast' size={25} color={'#fff'}>
+          </Feather>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ paddingHorizontal: 15 }}>
+          <Text><MaterialIcons  name='videocam' size={25} color={'#fff'}>
+          </MaterialIcons>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ paddingHorizontal: 15 }}>
+          <Text><FontAwesome5  name='search' size={25} color={'#fff'}>
+          </FontAwesome5>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ paddingHorizontal: 15 }}>
+          <Text><MaterialCommunityIcons  name='account-circle' size={25} color={'#fff'}>
+          </MaterialCommunityIcons>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}));

@@ -3,7 +3,7 @@ import { Icon } from 'native-base';
 import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 import {Platform} from 'react-native';
-import HomeTab from './tabs/HomeTab';
+import HomeTab from './tabs/Favourite';
 import PlanetTab from './tabs/PlanetTab';
 import BasketTab from './tabs/BasketTab';
 import BookTab from './tabs/BookTab';

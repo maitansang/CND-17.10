@@ -1,2 +1,0 @@
-export const FETCH_YOUTUBE = 'FETCH_YOUTUBE';
-export const FETCH_SUCCEEDED = 'FETCH_SUCCEEDED';
